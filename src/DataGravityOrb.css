@@ -1,0 +1,162 @@
+.orb-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8rem 0;
+  position: relative;
+  z-index: 5;
+  perspective: 1200px;
+  overflow: hidden;
+}
+
+.orb-system {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateY(0deg);
+  animation: orbitSystem 40s linear infinite;
+}
+
+.orb-system:hover {
+  animation-play-state: paused;
+}
+
+.orb-system:hover .satellite-content {
+  animation-play-state: paused;
+}
+
+@keyframes orbitSystem {
+  from { transform: rotateX(60deg) rotateY(0deg) rotateZ(0deg); }
+  to { transform: rotateX(60deg) rotateY(0deg) rotateZ(360deg); }
+}
+
+/* Core Sphere */
+.core-sphere {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(-60deg); /* Counter-rotate to face user */
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #06b6d4, #020617);
+  box-shadow: 0 0 50px rgba(6, 182, 212, 0.4), inset -20px -20px 40px rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.core-glow {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 60%);
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Orbital Rings */
+.ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(6, 182, 212, 0.3);
+  transform-style: preserve-3d;
+}
+
+.ring-1 { width: 350px; height: 350px; animation: spinReverse 20s linear infinite; }
+.ring-2 { width: 500px; height: 500px; border-style: solid; border-color: rgba(6, 182, 212, 0.1); }
+.ring-3 { width: 650px; height: 650px; animation: spinReverse 40s linear infinite; }
+
+@keyframes spinReverse {
+  from { transform: translate(-50%, -50%) rotateZ(0deg); }
+  to { transform: translate(-50%, -50%) rotateZ(-360deg); }
+}
+
+/* Satellites */
+.satellite-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+}
+
+/* Positions relative to the rotating system */
+.sat-1 { transform: translate(-50%, -50%) rotateZ(0deg) translateX(175px); }
+.sat-2 { transform: translate(-50%, -50%) rotateZ(90deg) translateX(250px); }
+.sat-3 { transform: translate(-50%, -50%) rotateZ(180deg) translateX(325px); }
+.sat-4 { transform: translate(-50%, -50%) rotateZ(270deg) translateX(250px); }
+
+.satellite-content {
+  background: rgba(2, 6, 23, 0.95);
+  border: 1px solid #06b6d4;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 220px;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  backdrop-filter: blur(10px);
+  /* 
+    The parent system rotates X(60) then Z(t).
+    The satellite position rotates Z(offset).
+    To counter this, we rotate Z(-offset - t) then X(-60).
+  */
+}
+
+.sat-1 .satellite-content { animation: counterOrbit1 40s linear infinite; }
+.sat-2 .satellite-content { animation: counterOrbit2 40s linear infinite; }
+.sat-3 .satellite-content { animation: counterOrbit3 40s linear infinite; }
+.sat-4 .satellite-content { animation: counterOrbit4 40s linear infinite; }
+
+@keyframes counterOrbit1 { from { transform: rotateZ(0deg) rotateX(-60deg); } to { transform: rotateZ(-360deg) rotateX(-60deg); } }
+@keyframes counterOrbit2 { from { transform: rotateZ(-90deg) rotateX(-60deg); } to { transform: rotateZ(-450deg) rotateX(-60deg); } }
+@keyframes counterOrbit3 { from { transform: rotateZ(-180deg) rotateX(-60deg); } to { transform: rotateZ(-540deg) rotateX(-60deg); } }
+@keyframes counterOrbit4 { from { transform: rotateZ(-270deg) rotateX(-60deg); } to { transform: rotateZ(-630deg) rotateX(-60deg); } }
+
+.satellite-content:hover {
+  border-color: #fff;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+  z-index: 1000;
+}
+
+.sat-icon {
+  background: rgba(6, 182, 212, 0.1);
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: #06b6d4;
+  display: flex;
+}
+
+.sat-text {
+  flex: 1;
+}
+
+.sat-title {
+  font-family: var(--font-heading);
+  color: #06b6d4;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.sat-subtitle {
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .orb-system { transform: scale(0.6) rotateX(60deg) rotateY(0deg); }
+}
