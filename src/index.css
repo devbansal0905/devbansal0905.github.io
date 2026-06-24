@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --bg-color: #020617;
   --bg-gradient: radial-gradient(circle at top right, #0f172a, #020617 80%);
   --text-primary: #f8fafc;
@@ -67,7 +67,12 @@ body.architect-mode .glow {
   box-sizing: border-box;
 }
 
-body { overflow-x: clip;
+html {
+  zoom: 0.75;
+}
+
+body {
+  overflow-x: clip;
   font-family: var(--font-family);
   background: var(--bg-gradient);
   background-color: var(--bg-color);
@@ -79,6 +84,7 @@ body { overflow-x: clip;
   -moz-osx-font-smoothing: grayscale;
   transition: background 0.5s ease, color 0.5s ease;
 }
+
 body::before {
   content: "";
   position: fixed;
