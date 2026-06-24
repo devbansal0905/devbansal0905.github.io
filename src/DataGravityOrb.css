@@ -1,20 +1,24 @@
 .orb-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8rem 0;
-  position: relative;
   z-index: 5;
   perspective: 1200px;
   overflow: hidden;
 }
 
 .orb-system {
+  --orb-scale: 1;
   position: relative;
   width: 600px;
   height: 600px;
+  margin: 0 auto;
   transform-style: preserve-3d;
-  transform: rotateX(60deg) rotateY(0deg);
   animation: orbitSystem 40s linear infinite;
 }
 
@@ -27,8 +31,8 @@
 }
 
 @keyframes orbitSystem {
-  from { transform: rotateX(60deg) rotateY(0deg) rotateZ(0deg); }
-  to { transform: rotateX(60deg) rotateY(0deg) rotateZ(360deg); }
+  from { transform: scale(var(--orb-scale)) rotateX(60deg) rotateZ(0deg); }
+  to { transform: scale(var(--orb-scale)) rotateX(60deg) rotateZ(360deg); }
 }
 
 /* Core Sphere */
@@ -36,7 +40,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotateX(-60deg); /* Counter-rotate to face user */
+  transform: translate(-50%, -50%) rotateX(-60deg);
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -89,7 +93,6 @@
   transform-style: preserve-3d;
 }
 
-/* Positions relative to the rotating system */
 .sat-1 { transform: translate(-50%, -50%) rotateZ(0deg) translateX(175px); }
 .sat-2 { transform: translate(-50%, -50%) rotateZ(90deg) translateX(250px); }
 .sat-3 { transform: translate(-50%, -50%) rotateZ(180deg) translateX(325px); }
@@ -106,11 +109,6 @@
   align-items: center;
   gap: 1rem;
   backdrop-filter: blur(10px);
-  /* 
-    The parent system rotates X(60) then Z(t).
-    The satellite position rotates Z(offset).
-    To counter this, we rotate Z(-offset - t) then X(-60).
-  */
 }
 
 .sat-1 .satellite-content { animation: counterOrbit1 40s linear infinite; }
@@ -158,20 +156,17 @@
 }
 
 @media (max-width: 768px) {
-  .orb-system { transform: scale(0.6) rotateX(60deg) rotateY(0deg); }
-}
-
-.orb-container {
-  overflow: hidden;
-  max-width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 600px;
+  .orb-system { --orb-scale: 0.6; }
+  .orb-container {
+    min-height: 400px;
+    padding: 4rem 0;
+  }
 }
 
 @media (max-width: 480px) {
-  .orb-system {
-    transform: scale(0.4) rotateX(60deg) rotateY(0deg);
+  .orb-system { --orb-scale: 0.4; }
+  .orb-container {
+    min-height: 250px;
+    padding: 2rem 0;
   }
 }

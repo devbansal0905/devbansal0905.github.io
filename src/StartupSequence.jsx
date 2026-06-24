@@ -44,12 +44,12 @@ if __name__ == "__main__":
 
   return (
     <div style={{
-      position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+      position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, boxSizing: 'border-box',
       backgroundColor: '#000', color: '#00ff00', fontFamily: 'monospace',
-      padding: '2rem', zIndex: 9999, display: 'flex', flexDirection: 'column',
-      justifyContent: 'flex-start', alignItems: 'flex-start'
+      padding: '1rem', zIndex: 9999, display: 'flex', flexDirection: 'column',
+      justifyContent: 'flex-start', alignItems: 'flex-start', overflow: 'hidden'
     }}>
-      <pre style={{ whiteSpace: 'pre-wrap', margin: 0, fontSize: '1.2rem' }}>
+      <pre style={{ whiteSpace: 'pre-wrap', margin: 0, fontSize: 'clamp(0.7rem, 2.5vw, 1.2rem)' }}>
         {text}
         {isTyping && <span className="cursor-blink">_</span>}
       </pre>

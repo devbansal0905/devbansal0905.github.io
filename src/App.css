@@ -731,3 +731,15 @@ body.architect-mode .chat-input button {
 .node-content { background: rgba(15, 23, 42, 0.85); border: 1px solid #00ffff; color: #00ffff; padding: 1rem 1.5rem; border-radius: 8px; text-align: center; font-weight: 700; font-size: 0.9rem; box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); backdrop-filter: blur(5px); text-transform: uppercase; letter-spacing: 1px; width: 250px; min-height: 85px; display: flex; flex-direction: column; justify-content: center; line-height: 1.4; animation: floatNode 4s ease-in-out infinite alternate; }
 @keyframes floatNode { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
 @media (max-width: 768px) { .ironman-wrapper { width: 250px; height: 250px; } .node-content { font-size: 0.7rem; padding: 0.5rem 1rem; } }
+@media (max-width: 768px) {
+  .chat-widget {
+    bottom: 1rem;
+    right: 1rem;
+    transform: scale(1);
+  }
+  .chat-window {
+    width: calc(100vw - 3rem);
+    height: 400px;
+    right: 0;
+  }
+}
