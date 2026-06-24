@@ -160,3 +160,18 @@
 @media (max-width: 768px) {
   .orb-system { transform: scale(0.6) rotateX(60deg) rotateY(0deg); }
 }
+
+.orb-container {
+  overflow: hidden;
+  max-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+}
+
+@media (max-width: 480px) {
+  .orb-system {
+    transform: scale(0.4) rotateX(60deg) rotateY(0deg);
+  }
+}
